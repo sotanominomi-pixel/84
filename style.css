@@ -1,0 +1,407 @@
+/* 基本設定 (白背景・黒文字) */
+body {
+    background-color: #fff; 
+    color: #000; 
+    font-family: 'Roboto', -apple-system, sans-serif; 
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: block; 
+}
+
+.n-clock-app {
+    width: 100%;
+    max-width: 500px; 
+    height: 100vh; 
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    /* タブバー(50px) + 広告(50px) + 上下の余白分を考慮してパディングを設定 */
+    padding-bottom: 130px; 
+}
+
+/* 底部ナビゲーション（タブバー）のデザイン */
+.tab-bar {
+    position: fixed; 
+    bottom: 50px; /* 広告エリア（高さ50pxと仮定）の真上に配置 */
+    width: 100%;
+    max-width: 500px; 
+    z-index: 10;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0; 
+    border-top: 1px solid #ccc;
+    background-color: #f7f7f7;
+    font-weight: 500;
+}
+
+/* 広告エリアを最下部に固定するスタイル */
+.ad-container-bottom {
+    position: fixed;
+    bottom: 0; /* 画面の最下部に固定 */
+    width: 100%;
+    max-width: 500px; 
+    height: 50px; /* バナー広告の標準的な高さ */
+    background-color: #f0f0f0; /* 広告エリアの背景色 */
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15; 
+    font-size: 12px;
+    color: #888;
+}
+
+.tab-item {
+    background: none;
+    border: none;
+    color: #888; 
+    padding: 10px 18px; 
+    font-size: 16px; 
+    cursor: pointer;
+}
+
+.tab-item.active {
+    color: #000;
+}
+
+/* 時計モードの表示 */
+.mode-title {
+    font-size: 24px;
+    font-weight: 900; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.clock-display {
+    font-size: 80px;
+    text-align: center;
+    margin: 40px 0;
+    font-weight: 700; 
+}
+
+/* スライドバーの太さ調整 */
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 32px;
+    width: 32px; 
+    border-radius: 50%;
+    background: #000;
+}
+
+/* iOS風トグルスイッチ */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 51px;
+    height: 31px;
+    float: right; 
+}
+
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc; /* OFFの色 */
+    transition: 0.4s; 
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute; content: ""; height: 27px; width: 27px; left: 2px; bottom: 2px;
+    background-color: white; /* つまみの色 */
+    transition: 0.4s; 
+    border-radius: 50%;
+}
+/* ON の状態 */
+input:checked + .slider { 
+    background-color: #000; /* ONの色を黒に設定 */
+}
+/* ON の時につまみを右へ移動させる（20px移動）*/
+input:checked + .slider:before { 
+    transform: translateX(20px); 
+}
+
+
+/* ストップウォッチの角丸四角ボタン */
+.rounded-square-btn {
+    width: 130px; 
+    height: 130px; 
+    border-radius: 30px; 
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+}
+
+.stopwatch-controls {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.control-button {
+    background-color: #ddd; 
+    color: #000;
+}
+.control-button.stop {
+    background-color: #000;
+    color: #fff;
+}
+.control-button.gray-btn {
+    background-color: #ccc;
+    color: #000;
+}
+
+/* 角丸アクションボタンの共通スタイル */
+.action-button {
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+}
+
+/* アラームリストのスタイル */
+.alarm-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.alarm-time {
+    font-size: 40px; 
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* アラーム設定のためのセレクトボックス */
+.time-select {
+    font-size: 26px; 
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 8px;
+    border: 1px solid #000; 
+    background-color: #fff;
+    font-weight: 700;
+    color: #000;
+}
+
+.save-btn {
+    background-color: #000;
+    color: #fff;
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* 設定モードの文字を大きく */
+.settings-list {
+    list-style: none;
+    padding: 0;
+    font-size: 18px; 
+    font-weight: 500;
+}
+
+/* 設定リストのアイテム全体 */
+.settings-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    margin-bottom: 10px; 
+    padding: 15px 15px; 
+}
+
+/* 設定画面内のリンクのスタイル */
+.settings-list li a.settings-link {
+    color: inherit; 
+    text-decoration: none;
+    flex-grow: 1; 
+    padding-right: 10px; 
+}
+
+/* 矢印アイコンのスタイル */
+.settings-list li .disclosure-arrow {
+    font-weight: 900;
+    color: #888; /* グレーアウトした矢印 */
+}
+
+/* 言語切り替えボタンの調整 */
+.segmented-control {
+    font-size: 16px;
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.segment-button {
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.segment-button.active {
+    background-color: #000;
+    color: #fff;
+}
+
+/* ラップリストのスタイル */
+.lap-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.lap-list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+/* --- アコーディオン（開閉タブ）のスタイル --- */
+.accordion-header {
+    background-color: #eee;
+    color: #000;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px; /* 周りのデザインと合わせる */
+    margin-top: 20px;
+}
+
+.accordion-header:hover {
+    background-color: #ddd;
+}
+
+.accordion-icon {
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.accordion-header.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    border-radius: 0 0 12px 12px;
+}
+
+.accordion-content.open {
+    max-height: 2000px; /* 十分な高さを設定 */
+    padding: 18px;
+    border: 1px solid #eee;
+    border-top: none;
+}
+
+/* ★★★ 追加: N値プリセット関連のスタイル ★★★ */
+
+.preset-container {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+}
+
+.preset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.preset-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.save-preset-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+}
+
+.preset-list {
+    list-style: none;
+    padding: 0;
+}
+
+.preset-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s;
+}
+
+.preset-item:hover {
+    background-color: #f0f0f0;
+}
+
+.preset-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.preset-value {
+    font-weight: 700;
+    color: #000;
+    margin-right: 15px;
+}
+
+.delete-preset-btn {
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
