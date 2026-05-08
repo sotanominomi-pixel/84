@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sotanominomi-pixel - Slot Game</title>
+    <style>
+        /* 全体のデザイン設定 */
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* スロットの外枠 */
+        .slot-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 各リール */
+        .reel {
+            width: 80px;
+            height: 120px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        /* ボタン */
+        button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px #c0392b;
+            transition: 0.1s;
+        }
+
+        button:active {
+            box-shadow: 0 0 #c0392b;
+            transform: translateY(5px);
+        }
+
+        /* プライバシーポリシー用のスタイル */
+        footer {
+            margin-top: 50px;
+        }
+        .privacy-link {
+            color: #888;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #privacy-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- スロット部分 -->
+    <div class="slot-container">
+        <div id="reel1" class="reel">7</div>
+        <div id="reel2" class="reel">7</div>
+        <div id="reel3" class="reel">7</div>
+    </div>
+
+    <button onclick="spin()">SPIN!</button>
+
+    <!-- プライバシーポリシーのリンク -->
+    <footer>
+        <a class="privacy-link" onclick="openModal()">Privacy Policy</a>
+    </footer>
+
+    <!-- プライバシーポリシーのモーダル画面 -->
+    <div id="privacy-modal">
+        <div class="modal-content">
+            <h2>プライバシーポリシー</h2>
+            <p><strong>1. 免責事項</strong><br>
+            当サイトの診断結果（スロットの結果）はエンタメ目的であり、いかなる保証も行いません。利用による損害について責任を負いません。</p>
+            <p><strong>2. データの取扱い</strong><br>
+            当サイトはクッキーを使用して利用状況を分析することがあります。</p>
+            <button onclick="closeModal()">閉じる</button>
+        </div>
+    </div>
+
+    <script>
+        const symbols = ["🍒", "🔔", "🍋", "💎", "7️⃣"];
+
+        function spin() {
+            const r1 = symbols[Math.floor(Math.random() * symbols.length)];
+            const r2 = symbols[Math.floor(Math.random() * symbols.length)];
+            const r3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+            document.getElementById('reel1').innerText = r1;
+            document.getElementById('reel2').innerText = r2;
+            document.getElementById('reel3').innerText = r3;
+
+            if (r1 === r2 && r2 === r3) {
+                setTimeout(() => alert("JACKPOT! 🎉"), 100);
+            }
+        }
+
+        // モーダル制御用のJavaScript
+        function openModal() {
+            document.getElementById('privacy-modal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('privacy-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
